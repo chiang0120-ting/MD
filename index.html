@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>飛魚的呼喚電子書｜作品總覽</title>
+  <style>
+    :root{
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --card-bg: rgba(255,255,255,.10);
+      --card-bd: rgba(255,255,255,.18);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 800px at 15% 15%, rgba(255,255,255,.18), transparent 55%),
+        radial-gradient(900px 700px at 85% 20%, rgba(255,255,255,.14), transparent 60%),
+        linear-gradient(135deg, #0b1b38 0%, #1b2a4a 35%, #3b1a4a 70%, #1b3b3a 100%);
+      background-attachment: fixed;
+      overflow-x:hidden;
+    }
+    .wrap{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 28px 18px 46px;
+    }
+    header{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    h1{
+      margin:0;
+      font-size: clamp(22px, 3.2vw, 36px);
+      letter-spacing:.02em;
+    }
+    .sub{
+      margin:8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height:1.5;
+    }
+    .tools{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .pill{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 25px rgba(0,0,0,.18);
+    }
+    .pill input{
+      all:unset;
+      width: 220px;
+      color: var(--text);
+      font-size: 14px;
+    }
+    .pill input::placeholder{ color: rgba(255,255,255,.55); }
+    .btn{
+      all:unset;
+      cursor:pointer;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(10px);
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      user-select:none;
+      font-size: 14px;
+      color: var(--text);
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.26); }
+
+    /* ✅ 一排四張 */
+    .grid{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+    @media (max-width: 1020px){
+      .grid{ grid-template-columns: repeat(3, 1fr); }
+      header{ align-items:flex-start; flex-direction:column; }
+      .tools{ justify-content:flex-start; }
+    }
+    @media (max-width: 720px){
+      .grid{ grid-template-columns: repeat(2, 1fr); }
+      .pill input{ width: 180px; }
+    }
+    @media (max-width: 420px){ .grid{ grid-template-columns: 1fr; } }
+
+    a.card{
+      position:relative;
+      display:block;
+      border-radius: var(--radius);
+      overflow:hidden;
+      text-decoration:none;
+      color: var(--text);
+      background: var(--card-bg);
+      border: 1px solid var(--card-bd);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      transform: translateZ(0);
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    a.card:hover{
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,.30);
+      background: rgba(255,255,255,.12);
+    }
+    .thumb{
+      width:100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display:block;
+      background: rgba(0,0,0,.18);
+    }
+    .meta{
+      padding: 12px 12px 14px;
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+    }
+    .name{
+      font-weight: 800;
+      letter-spacing:.02em;
+      font-size: 15px;
+      line-height:1.2;
+    }
+    .seat{
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.2;
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .badge{
+      position:absolute;
+      top: 10px;
+      left: 10px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.88);
+      font-size: 12px;
+      backdrop-filter: blur(10px);
+    }
+    footer{
+      margin-top: 22px;
+      color: rgba(255,255,255,.55);
+      font-size: 12px;
+      line-height:1.6;
+    }
+    .count{
+      color: rgba(255,255,255,.75);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>飛魚的呼喚電子書｜總覽入口</h1>
+      
+        <div id="count" class="count"></div>
+      </div>
+
+      <div class="tools">
+        <div class="pill" title="搜尋">
+          🔎 <input id="q" placeholder="搜尋：座號 / 姓名 / 資料夾" autocomplete="off" />
+        </div>
+        <button class="btn" id="resetBtn" type="button">清除</button>
+      </div>
+    </header>
+
+    <main id="grid" class="grid" aria-live="polite"></main>
+
+    <footer>
+
+    </footer>
+  </div>
+
+  <script>
+    /**
+     * ✅ 規則
+     * - thumb:   縮圖固定放在 thumbs/ 資料夾
+     * - folder:  每個人的資料夾（與本 index.html 同層）
+     * - 連結：   `${folder}/index.html` 且全部 target="_blank"（另開新視窗/分頁）
+     */
+    const items = [
+      { seat:"02", name:"林劭錡", folder:"02/html", thumb:"thumbs/02.png" },
+      { seat:"03", name:"林育呈", folder:"03/html", thumb:"thumbs/03.png" },
+      { seat:"04", name:"葉家妤", folder:"04/html", thumb:"thumbs/04.png" },
+      { seat:"05", name:"張育瑞", folder:"05/html", thumb:"thumbs/05.png" },
+      { seat:"06", name:"梁瑋國", folder:"06/html", thumb:"thumbs/06.png" },
+      { seat:"07", name:"廖祐陞", folder:"07/html", thumb:"thumbs/07.png" },
+      { seat:"08", name:"劉泓鋆", folder:"08/html", thumb:"thumbs/08.png" },
+      { seat:"09", name:"潘李洲", folder:"09/html", thumb:"thumbs/09.png" },
+      { seat:"10", name:"劉家瑜", folder:"10/html", thumb:"thumbs/10.png" },
+
+      { seat:"11", name:"王于庭", folder:"11/html", thumb:"thumbs/11.png" },
+      { seat:"12", name:"田歆", folder:"12/html", thumb:"thumbs/12.png" },
+      { seat:"13", name:"蔡汶君", folder:"13/html", thumb:"thumbs/13.png" },
+      { seat:"14", name:"吳孟諠", folder:"14/html", thumb:"thumbs/14.png" },
+      { seat:"15", name:"宋子祺", folder:"15/html", thumb:"thumbs/15.png" },
+      { seat:"16", name:"杜安蕎", folder:"16/html", thumb:"thumbs/16.png" },
+      { seat:"17", name:"杜雅晴", folder:"17/html", thumb:"thumbs/17.png" },
+      { seat:"18", name:"鄭恩如", folder:"18/html", thumb:"thumbs/18.png" },
+      { seat:"19", name:"林宜葳", folder:"19/html", thumb:"thumbs/19.png" },
+      { seat:"20", name:"林宸語", folder:"20/html", thumb:"thumbs/20.png" },
+
+      { seat:"21", name:"涂軒慈", folder:"21/html", thumb:"thumbs/21.png" },
+      { seat:"22", name:"高紫妍", folder:"22/html", thumb:"thumbs/22.png" },
+      { seat:"24", name:"張芠喬", folder:"24/html", thumb:"thumbs/24.png" },
+      { seat:"25", name:"張瑀津", folder:"25/html", thumb:"thumbs/25.png" },
+      { seat:"26", name:"陳盈羽", folder:"26/html", thumb:"thumbs/26.png" },
+      { seat:"27", name:"陳聖卉", folder:"27/html", thumb:"thumbs/27.png" },
+      { seat:"28", name:"曾若瑄", folder:"28/html", thumb:"thumbs/28.png" },
+      { seat:"29", name:"黃妤涵", folder:"29/html", thumb:"thumbs/29.png" },
+      { seat:"30", name:"黃品嘉", folder:"30/html", thumb:"thumbs/30.png" },
+      { seat:"31", name:"黃捷羽", folder:"30/html", thumb:"thumbs/31.png" },
+      { seat:"32", name:"黃聆瑄", folder:"30/html", thumb:"thumbs/32.png" },
+    ];
+
+    const grid = document.getElementById("grid");
+    const q = document.getElementById("q");
+    const resetBtn = document.getElementById("resetBtn");
+    const count = document.getElementById("count");
+
+    function escapeHtml(s){
+      return String(s).replace(/[&<>"']/g, c=>({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+      }[c]));
+    }
+
+    function render(list){
+      grid.innerHTML = "";
+      const frag = document.createDocumentFragment();
+
+      list.forEach(it=>{
+        const href = `${it.folder}/index.html`;
+        const a = document.createElement("a");
+        a.className = "card";
+        a.href = href;
+
+        // ✅ 全部另開新視窗/分頁
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+
+        a.innerHTML = `
+          <div class="badge">#${escapeHtml(it.seat)}</div>
+          <img class="thumb" src="${escapeHtml(it.thumb)}" alt="${escapeHtml(it.seat)} ${escapeHtml(it.name)}" loading="lazy"
+               onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>\
+<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;800&quot; height=&quot;600&quot;>\
+<rect width=&quot;100%&quot; height=&quot;100%&quot; fill=&quot;rgba(0,0,0,.18)&quot;/>\
+<text x=&quot;50%&quot; y=&quot;50%&quot; dominant-baseline=&quot;middle&quot; text-anchor=&quot;middle&quot; fill=&quot;rgba(255,255,255,.7)&quot; font-size=&quot;24&quot; font-family=&quot;Arial&quot;>\
+缺少縮圖：${encodeURIComponent(it.thumb)}\
+</text></svg>';" />
+          <div class="meta">
+            <div class="name">${escapeHtml(it.name)}</div>
+            <div class="seat"><span>座號：${escapeHtml(it.seat)}</span><span>新視窗開啟 →</span></div>
+          </div>
+        `;
+        frag.appendChild(a);
+      });
+
+      grid.appendChild(frag);
+      count.textContent = `目前顯示：${list.length} / ${items.length}`;
+    }
+
+    function filter(){
+      const key = q.value.trim().toLowerCase();
+      if(!key){ render(items); return; }
+      const filtered = items.filter(it =>
+        String(it.seat).toLowerCase().includes(key) ||
+        String(it.name).toLowerCase().includes(key) ||
+        String(it.folder).toLowerCase().includes(key)
+      );
+      render(filtered);
+    }
+
+    q.addEventListener("input", filter);
+    resetBtn.addEventListener("click", ()=>{
+      q.value = "";
+      q.focus();
+      render(items);
+    });
+
+    render(items);
+  </script>
+	<div class="storypack-vertical">
+
+  <style>
+    /* ===== Scoped styles：只影響本區塊 ===== */
+    .storypack-vertical{ width:100%; }
+
+    /* 白底簡介 */
+    .storypack-vertical .intro{
+      background:#ffffff;
+      color:#111;
+      padding:56px 18px;
+    }
+    .storypack-vertical .intro .inner{
+      max-width: 980px;
+      margin:0 auto;
+      text-align:center;
+    }
+    .storypack-vertical .intro h2{
+      margin:0 0 14px;
+      font-size:30px;
+      letter-spacing:.04em;
+    }
+    .storypack-vertical .intro p{
+      margin:0 auto;
+      max-width: 860px;
+      line-height:1.9;
+      font-size:18px;
+      color:#333;
+    }
+
+    /* 深色滿版區 */
+    .storypack-vertical .darkwrap{
+      background:#2f2f2f;
+      color:#fff;
+      padding:42px 18px 60px;
+    }
+    .storypack-vertical .darkwrap .inner{
+      max-width: 980px;
+      margin:0 auto;
+      display:flex;
+      flex-direction:column;
+      gap:34px;
+    }
+
+    /* 單段：大圖在上、文字在下 */
+    .storypack-vertical .block{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    /* 大圖框（置中卡片感） */
+    .storypack-vertical .imgframe{
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius: 10px;
+      padding:14px;
+      overflow:hidden;
+    }
+    .storypack-vertical .imgframe img{
+      width:100%;
+      height:auto;
+      display:block;
+      border-radius: 6px;
+    }
+
+    /* 文字 */
+    .storypack-vertical .text h3{
+      margin:0 0 10px;
+      font-size:18px;
+      letter-spacing:.03em;
+    }
+    .storypack-vertical .text p{
+      margin:0;
+      line-height:1.9;
+      font-size:18px;
+      color: rgba(255,255,255,.88);
+    }
+    .storypack-vertical .text .lead{
+      margin-bottom:10px;
+      font-weight:600;
+      color: rgba(255,255,255,.92);
+    }
+
+    /* 條列 */
+    .storypack-vertical .list{
+      margin:0;
+      padding-left: 1.2em;
+      line-height:1.9;
+      font-size:18px;
+      color: rgba(255,255,255,.88);
+    }
+    .storypack-vertical .list li{ margin: 6px 0; }
+
+    /* RWD */
+    @media (max-width: 820px){
+      .storypack-vertical .intro{ padding:44px 16px; }
+      .storypack-vertical .darkwrap{ padding:30px 16px 44px; }
+      .storypack-vertical .imgframe{ padding:10px; }
+    }
+  </style>
+
+  <!-- ===== 白色簡介（直接接在圖表下方） ===== -->
+  <div class="intro">
+    <div class="inner">
+      <h2>達悟族的姓名</h2>
+      <p>
+        達悟族採取「親從子名」制度，凡未生子女者，會在本名前加上 Si（西）。
+        生下第一個子女後，父母的稱謂隨之改變；成為祖父母時，則又有不同的稱呼方式。
+        姓名的轉換，反映了家庭角色與生命歷程的變化。
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== 深色圖文區（四段） ===== -->
+  <div class="darkwrap">
+    <div class="inner">
+
+      <div class="block">
+        <div class="imgframe">
+          <img src="thumbs/story01.png">
+        </div>
+        <div class="text">
+          <p class="lead">飛魚的呼喚全文分為六大段：</p>
+          <ul class="list">
+            <li>第一大段描寫達卡安央求父親帶他出海捕飛魚被拒的委屈情狀。</li>
+            <li>第二大段描寫達卡安如願踏上處女航的喜悅。</li>
+            <li>第三大段描寫達卡安陶醉於星空之美與想像時，父親仍不忘叮嚀讀書的重要。</li>
+            <li>第四大段描寫在長久的等待之後，達卡安終於捕到飛魚的欣喜若狂。</li>
+			  <li>第五大段描寫回航的達卡安，接受眾人稱讚的榮耀，但父親依舊叮嚀唸書的重要。</li>
+    		  <li>第六大段描寫課堂中的達卡安，遭受老師嘲諷的恥辱。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="imgframe">
+          <img src="thumbs/story02.png">
+        </div>
+        <div class="text">
+          <p class="lead">飛魚文化</p>
+          <p class="lead">      　　捕飛魚是達悟族的年度盛事。飛魚會隨著黑潮來到蘭嶼，而達悟族視飛魚為上蒼賜予的聖物，要以敬畏戒慎的心情對待。每年的2至3月舉行「招魚祭」，招請飛魚、祈求豐收。6到7月舉行「收藏祭」，這天起不可再捕捉飛魚。中秋節過後則舉行「終食祭」，禁止再食用飛魚，吃不完的飛魚乾給豬狗吃，不隨意丟棄，表達對飛魚的尊重。</p>
+		  </div>
+      </div>
+
+      <div class="block">
+        <div class="imgframe">
+          <img src="thumbs/story03.png">
+        </div>
+        <div class="text">
+                    <p class="lead">拼板舟</p>
+        <p class="lead">拼板舟（達悟語為tatala）由木頭拼裝而成，製作過程中不用一根鐵釘。製作程序繁瑣，從一艘船的取材到建置完成，族人同心協力，大約需要2至3年才能完成。拼裝好的船身會用天然的顏料漆上圖騰，由「黑、紅、白」三色組成，有避邪祈福的象徵意義。拼板舟之於達悟族人不只是乘載的工具，更是人與大地對話的體現，乘載的是達悟族的整體文化。</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="imgframe">
+          <img src="thumbs/story04.png">
+        </div>
+        <div class="text">
+          
+          <p class="lead">達悟族之名</p>
+          <p class="lead">由於海洋的天然屏障，達悟族是原住民族中較晚與漢文化接觸的一支，他們自稱「達悟」，是「人」的意思。日本人類學家鳥居龍藏曾將他們命名為「雅美族」，但在1995年成立「達悟同鄉會」希望將「雅美」正名為「達悟族」。由於達悟族將傳統文化保存得相當完整，蘭嶼因此被譽為「太平洋上的遺世珍珠」。</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<div class="back-to-top-fullbar">
+  <style>
+    .back-to-top-fullbar{
+      /* 與整體頁面背景一致（請填你頁面的背景） */
+      --page-bg:
+        radial-gradient(1200px 800px at 15% 15%, rgba(255,255,255,.18), transparent 55%),
+        radial-gradient(900px 700px at 85% 20%, rgba(255,255,255,.14), transparent 60%),
+        linear-gradient(135deg, #0b1b38 0%, #1b2a4a 35%, #3b1a4a 70%, #1b3b3a 100%);
+
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100vw;          /* 滿版寬度 */
+      background: var(--page-bg);
+      z-index: 999;
+      text-align: center;
+    }
+    .back-to-top-fullbar span{
+      display: inline-block;
+      cursor: pointer;
+      font-size: 18px;
+      color: #ffffff;
+      line-height: 1;        /* 背景高度貼合文字 */
+      padding: 6px 0;        /* 細條高度 */
+      user-select: none;
+    }
+  </style>
+
+  <span onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">
+    TOP
+  </span>
+</div>
+
+
+</body>
+</html>
